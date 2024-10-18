@@ -1,12 +1,12 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public abstract class Character
+public abstract class Characters
 {
     protected int health = 100;
     
-    protected List<IItem> items = new List<IItem>();
+    protected List<IItem> Items = new List<IItem>();
     
-    public  Character(string name)
+    public  Characters(string name)
     {
         this.Name = name;
     }
@@ -17,11 +17,11 @@ public abstract class Character
         get
         {
             int value = 0;
-            foreach (IItem item in this.items)
+            foreach (IItem item in this.Items)
             {
-                if (item is AttackItem)
+                if (item is IAttackItem)
                 {
-                    value += (item as AttackItem).AttackValue;
+                    value += (item as IAttackItem).AttackValue;
                 }
             }
             return value;
@@ -33,7 +33,7 @@ public abstract class Character
         get
         {
             int value = 0;
-            foreach (IItem item in this.items)
+            foreach (IItem item in this.Items)
             {
                 if (item is IDefenseItem)
                 {
@@ -58,12 +58,12 @@ public abstract class Character
 
     public void AddItem(IItem item)
     {
-        this.items.Add(item);
+        this.Items.Add(item);
     }
 
     public void RemoveItem(IItem item)
     {
-        this.items.Remove(item);
+        this.Items.Remove(item);
     }
 
     public void Cure()

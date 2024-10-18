@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 namespace Ucu.Poo.RoleplayGame;
 
-public class Archer : Character
+public class Archer : Characters
 {
 
     public Archer(string name) : base(name)
