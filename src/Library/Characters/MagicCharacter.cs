@@ -12,8 +12,7 @@ public abstract class MagicCharacter : Characters
     {
         this.ItemsMagicos.Add(ItemMagico);
     }
-
-    void RemoveItem(IMagicalItem ItemMagico)
+    public void RemoveItem(IMagicalItem ItemMagico)
     {
      this.ItemsMagicos.Remove(ItemMagico);   
     }
