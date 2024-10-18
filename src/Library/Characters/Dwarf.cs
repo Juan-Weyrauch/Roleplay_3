@@ -3,8 +3,6 @@ namespace Ucu.Poo.RoleplayGame;
 
 public class Dwarf : Characters
 {
-
-
     public Dwarf(string name) : base(name)
     {
         this.Name = name;
