@@ -1,8 +1,20 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public interface IMagicCharacter: ICharacter
-{
-    void AddItem(IMagicalItem item);
+public abstract class MagicCharacter : Character
 
-    void RemoveItem(IMagicalItem item);
+{
+   public MagicCharacter(string name) : base(name)
+    {
+        this.Name = name;
+    }
+    private List<IMagicalItem> ItemsMagicos = new List<IMagicalItem>();
+    public  void  AddItem(IMagicalItem ItemMagico)
+    {
+        this.ItemsMagicos.Add(ItemMagico);
+    }
+
+    void RemoveItem(IMagicalItem ItemMagico)
+    {
+     this.ItemsMagicos.Remove(ItemMagico);   
+    }
 }

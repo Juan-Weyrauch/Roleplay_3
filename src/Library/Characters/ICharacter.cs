@@ -1,20 +1,81 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public interface ICharacter
+public abstract class Character
 {
-    string Name { get; set; }
+    protected int health = 100;
+    
+    protected List<IItem> items = new List<IItem>();
+    
+    public  Character(string name)
+    {
+        this.Name = name;
+    }
+    protected string Name { get; set; }
 
-    int Health { get; }
+    public int AttackValue
+    {
+        get
+        {
+            int value = 0;
+            foreach (IItem item in this.items)
+            {
+                if (item is AttackItem)
+                {
+                    value += (item as AttackItem).AttackValue;
+                }
+            }
+            return value;
+        }
+    }
 
-    int AttackValue { get; }
+    public int DefenseValue
+    {
+        get
+        {
+            int value = 0;
+            foreach (IItem item in this.items)
+            {
+                if (item is IDefenseItem)
+                {
+                    value += (item as IDefenseItem).DefenseValue;
+                }
+            }
+            return value;
+        }
+    }
+    public int Health
+    {
+        get
+        {
+            return this.health;
+        }
+        private set
+        {
+            this.health = value < 0 ? 0 : value;
+        }
+    }
 
-    int DefenseValue { get; }
 
-    void AddItem(IItem item);
+    public void AddItem(IItem item)
+    {
+        this.items.Add(item);
+    }
 
-    void RemoveItem(IItem item);
+    public void RemoveItem(IItem item)
+    {
+        this.items.Remove(item);
+    }
 
-    void Cure();
+    public void Cure()
+    {
+        this.Health = 100;
+    }
 
-    void ReceiveAttack(int power);
+    public void ReceiveAttack(int power)
+    {
+        if (this.DefenseValue < power)
+        {
+            this.Health -= power - this.DefenseValue;
+        }
+    }
 }
