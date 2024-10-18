@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 namespace Ucu.Poo.RoleplayGame;
 
-public class Wizard : MagicCharacter
+public class Wizard : MagicHeroe
 {
     public Wizard(string name) : base(name)
     {

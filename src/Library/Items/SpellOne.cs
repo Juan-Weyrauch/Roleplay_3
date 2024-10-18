@@ -1,6 +1,6 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public class sSpellOne: ISpell
+public class SpellOne: ISpell
 {
     public int AttackValue
     {

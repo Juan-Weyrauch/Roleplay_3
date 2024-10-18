@@ -1,9 +1,9 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public abstract class MagicCharacter : Characters
+public abstract class MagicHeroe : Heroe
 
 {
-   public MagicCharacter(string name) : base(name)
+   public MagicHeroe(string name) : base(name)
     {
         this.Name = name;
     }

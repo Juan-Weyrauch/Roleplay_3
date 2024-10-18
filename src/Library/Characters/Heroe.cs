@@ -1,18 +1,15 @@
+using Library.Afiliacion;
+
 namespace Ucu.Poo.RoleplayGame;
 
-public abstract class Characters
+public abstract class Heroe : Characters
 {
-    protected int health = 100;
-    
     protected List<IItem> Items = new List<IItem>();
-    
-    public  Characters(string name)
+    public Heroe(string name) : base(name)
     {
         this.Name = name;
     }
-    protected string Name { get; set; }
-
-    public int AttackValue
+    public override int AttackValue
     {
         get
         {
@@ -24,11 +21,12 @@ public abstract class Characters
                     value += (item as IAttackItem).AttackValue;
                 }
             }
+
             return value;
         }
     }
 
-    public int DefenseValue
+    public override int DefenseValue
     {
         get
         {
@@ -40,42 +38,32 @@ public abstract class Characters
                     value += (item as IDefenseItem).DefenseValue;
                 }
             }
+
             return value;
         }
     }
-    public int Health
-    {
-        get
-        {
-            return this.health;
-        }
-        private set
-        {
-            this.health = value < 0 ? 0 : value;
-        }
-    }
-
-
     public void AddItem(IItem item)
     {
         this.Items.Add(item);
     }
-
     public void RemoveItem(IItem item)
     {
         this.Items.Remove(item);
     }
-
+    
     public void Cure()
     {
         this.Health = 100;
     }
-
-    public void ReceiveAttack(int power)
+    public void Checkcurar()
     {
-        if (this.DefenseValue < power)
+        if (ValorVp == 5)
         {
-            this.Health -= power - this.DefenseValue;
+            Cure();
+            ValorVp = 0;
         }
     }
+
 }
+
+    
