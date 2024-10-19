@@ -5,9 +5,12 @@ namespace Ucu.Poo.RoleplayGame;
 public abstract class Heroe : Characters
 {
     protected List<IItem> Items = new List<IItem>();
-    public Heroe(string name) : base(name)
+    public Heroe(string name,int life, int attackValue, int defenseValue) : base(name)
     {
         this.Name = name;
+        this.health = life;
+        this.DefenseValue = defenseValue; 
+        this.AttackValue = attackValue;
     }
     public override int AttackValue
     {

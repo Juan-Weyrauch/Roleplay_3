@@ -12,27 +12,73 @@ public class  Encuentro
         this.listaEnemigos = enemigos;
         this.listaHeroes = heroes;
     }
-    public void DoEncuentro() // Se define el metodo como pide la consigna.
+
+    public void DoEncuentro()
     {
-        int canitidadInicialHeroes = listaHeroes.Count;
-        for (int i = 0; i != canitidadInicialHeroes ; i++)
-        { // La lógica de esto es lo que esta mal. falta solucionar ese aspecto.
-            Enemigo enemigoActual = listaEnemigos[i];
-            Heroe heroActual = listaHeroes[i];
-            enemigoActual.Attack(heroActual); // Metodo que permite atacar a un character.
-            Console.WriteLine($"{enemigoActual.ObtenerNombre()} ataca a el heroe {heroActual.ObtenerNombre()}");
-            if (heroActual.Health <= 0)
+        // Mientras haya héroes y enemigos vivos
+        while (listaHeroes.Count > 0 && listaEnemigos.Count > 0)
+        {
+            // Los enemigos atacan primero
+            for (int i = 0; i < listaEnemigos.Count; i++)
             {
-                Console.WriteLine($"{heroActual.ObtenerNombre()} ha muerto a manos de {heroActual.ObtenerNombreAsesino()}");
+                Enemigo enemigoActual = listaEnemigos[i];
+                // Selecciona al héroe que será atacado (ciclo entre héroes si hay más enemigos que héroes)
+                Heroe heroActual = listaHeroes[i % listaHeroes.Count];
+
+                enemigoActual.Attack(heroActual); // El enemigo ataca al héroe
+                Console.WriteLine($"{enemigoActual.ObtenerNombre()} ataca al heroe {heroActual.ObtenerNombre()}");
+                // Verificar si el héroe ha muerto
+                if (heroActual.Health <= 0)
+                {
+                    Console.WriteLine(
+                        $"{heroActual.ObtenerNombre()} ha muerto a manos de {enemigoActual.ObtenerNombre()}");
+                    listaHeroes.Remove(heroActual); // Eliminar héroe de la lista
+                    if (listaHeroes.Count == 0) break; // Si ya no quedan héroes, el encuentro termina
+                }
             }
-            if (enemigoActual.Health <= 0) 
+
+            // Los héroes que sobreviven contraatacan
+            List<Enemigo> enemigosMuertos = new List<Enemigo>();
+            foreach (Heroe hero in listaHeroes)
             {
-                 heroActual.AumentarVp(enemigoActual); // Aumenta el valor del vp del hero en base a el valor del muestro
-                 heroActual.Checkcurar(); // Checkea si es 5 o mayor para curarlo.
-                listaEnemigos.Remove(enemigoActual);
-                Console.WriteLine($"{enemigoActual.ObtenerNombre()} ha muerto a manos de {enemigoActual.ObtenerNombreAsesino()}");
+                foreach (Enemigo enemigo in listaEnemigos)
+                {
+                    if (enemigo.Health > 0)
+                    {
+                        hero.Attack(enemigo); // El héroe ataca al enemigo
+                        Console.WriteLine($"{hero.ObtenerNombre()} ataca al enemigo {enemigo.ObtenerNombre()}");
+
+                        // Verificar si el enemigo ha muerto
+                        if (enemigo.Health <= 0)
+                        {
+                            Console.WriteLine($"{enemigo.ObtenerNombre()} ha muerto a manos de {hero.ObtenerNombre()}");
+                            hero.AumentarVp(enemigo); // Aumentar VP del héroe
+                            hero.Checkcurar(); // Curar si el héroe tiene 5 o más VP
+                            enemigosMuertos.Add(enemigo); // Marcar al enemigo para eliminar después
+                        }
+                    }
+                }
+            }
+
+            // Remover enemigos muertos después de la batalla
+            foreach (Enemigo enemigoMuerto in enemigosMuertos)
+            {
+                listaEnemigos.Remove(enemigoMuerto);
+            }
+
+            // Si todos los enemigos están muertos, el encuentro termina
+            if (listaEnemigos.Count == 0)
+            {
+                Console.WriteLine("¡Los héroes han ganado la batalla!");
+                break;
+            }
+
+            // Si todos los héroes han muerto, el encuentro termina
+            if (listaHeroes.Count == 0)
+            {
+                Console.WriteLine("¡Los enemigos han ganado la batalla!");
+                break;
             }
         }
-        return ;
     }
 }
