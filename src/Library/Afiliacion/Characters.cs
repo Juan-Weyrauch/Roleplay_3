@@ -11,7 +11,7 @@ public abstract class Characters
      protected Characters Killer; 
      public virtual int DefenseValue { get; set; }
      public virtual int AttackValue { get; set; }
-     protected string Name { get; set; }
+     public string Name { get;protected set; }
      protected  int ValorVp { get; set; }
  
      public int Health
