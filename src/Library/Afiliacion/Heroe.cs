@@ -1,6 +1,6 @@
-using Library.Afiliacion;
-
 namespace Ucu.Poo.RoleplayGame;
+
+
 
 public abstract class Heroe : Characters
 {

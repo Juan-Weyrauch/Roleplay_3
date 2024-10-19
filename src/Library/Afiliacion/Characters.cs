@@ -1,4 +1,4 @@
-namespace Library.Afiliacion;
+namespace Ucu.Poo.RoleplayGame;
 
 public abstract class Characters
  {
@@ -7,8 +7,7 @@ public abstract class Characters
      {
          this.Name = name;
      }
-
-     protected Characters Killer; 
+     
      public virtual int DefenseValue { get; set; }
      public virtual int AttackValue { get; set; }
      public string Name { get;protected set; }
@@ -32,27 +31,10 @@ public abstract class Characters
              this.Health -= attacker.AttackValue - this.DefenseValue;
          }
 
-         if (this.Health <= 0)
-         {
-             this.Killer = attacker;
-         }
      }
-
-     public int Obtenervida()
-     {
-         return health;
-     }
-
+     
      public string ObtenerNombre()
      {
          return Name;
      }
-     public string ObtenerNombreAsesino()
-     {
-         return Killer.ObtenerNombre();
-     }
-
-     
-     
-     
  }

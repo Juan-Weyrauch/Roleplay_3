@@ -1,4 +1,4 @@
-namespace Library.Afiliacion;
+namespace Ucu.Poo.RoleplayGame;
 
 public class Enemigo: Characters
 {

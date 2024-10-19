@@ -1,7 +1,5 @@
-using Library.Afiliacion;
-using Ucu.Poo.RoleplayGame;
+namespace Ucu.Poo.RoleplayGame;
 
-namespace Library.Batalla;
 
 public class  Encuentro
 {

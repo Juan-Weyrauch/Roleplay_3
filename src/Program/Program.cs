@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Library.Afiliacion;
-using Library.Batalla;
+﻿using System.Collections.Generic;
+
 
 namespace Ucu.Poo.RoleplayGame.Program;
 
