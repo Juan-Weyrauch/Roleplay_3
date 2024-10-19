@@ -1,6 +1,6 @@
 namespace Library.Afiliacion;
 
-public  class Enemigo: Characters
+public class Enemigo: Characters
 {
    
 
