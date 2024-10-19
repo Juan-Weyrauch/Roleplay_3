@@ -57,13 +57,17 @@ public abstract class Heroe : Characters
     }
     public void Checkcurar()
     {
-        if (ValorVp == 5)
+        if (ValorVp >= 5)
         {
             Cure();
             ValorVp = 0;
         }
     }
 
+    public void AumentarVp(Enemigo enemigo)
+    {
+        ValorVp = ValorVp + enemigo.ObtenerValorVp();
+    }
 }
 
     

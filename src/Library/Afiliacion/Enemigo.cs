@@ -4,7 +4,7 @@ public  class Enemigo: Characters
 {
    
 
-    Enemigo(string name,int life, int attackValue, int defenseValue, int valorvp) : base(name)
+    public Enemigo(string name,int life, int attackValue, int defenseValue, int valorvp) : base(name)
     {
         this.Name = name;
         this.health = life;
@@ -12,6 +12,12 @@ public  class Enemigo: Characters
         this.AttackValue = attackValue;
         ValorVp = valorvp;
     }
+
+    public int ObtenerValorVp()
+    {
+        return ValorVp;
+    }
+    
 
     
 }
