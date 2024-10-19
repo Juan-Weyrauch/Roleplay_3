@@ -7,7 +7,8 @@ public abstract class Characters
      {
          this.Name = name;
      }
-     
+
+     protected Characters Killer; 
      public virtual int DefenseValue { get; set; }
      public virtual int AttackValue { get; set; }
      protected string Name { get; set; }
@@ -18,22 +19,40 @@ public abstract class Characters
          get { return this.health; }
          protected set { this.health = value < 0 ? 0 : value; }
      }
-     
+
+     public void Attack(Characters target)
+     {
+         target.ReceiveAttack(this);
+     }
  
-     public void ReceiveAttack(int power)
+     public void ReceiveAttack(Characters attacker)
      {
-         if (this.DefenseValue < power)
+         if (this.DefenseValue < attacker.AttackValue)
          {
-             this.Health -= power - this.DefenseValue;
+             this.Health -= attacker.AttackValue - this.DefenseValue;
+         }
+
+         if (this.Health <= 0)
+         {
+             this.Killer = attacker;
          }
      }
+
+     public int Obtenervida()
+     {
+         return health;
+     }
+
+     public string ObtenerNombre()
+     {
+         return Name;
+     }
+     public string ObtenerNombreAsesino()
+     {
+         return Killer.ObtenerNombre();
+     }
+
      
-     public virtual void ElminarCharacter(List<Characters> lista)
-     {
-         if (health == 0 && lista.Contains(this)) // metodo que permite eliminar un pj
-         {
-             lista.Remove(this);
-         }
-     }
+     
      
  }
