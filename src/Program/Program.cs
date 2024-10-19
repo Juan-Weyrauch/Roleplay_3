@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Library.Afiliacion;
 using Library.Batalla;
-using Library.Characters;
 
 namespace Ucu.Poo.RoleplayGame.Program;
 
@@ -12,11 +11,11 @@ class Program
     {
         List<Enemigo> EnemigosLista = new List<Enemigo>
         {
-            Orco orco = new Orco("Orco Salvaje", 20, 4, 2, 5);
-            Troll troll = new Troll("Troll de las Montañas", 30, 6, 5, 7);
-            Gargola gargola = new Gargola("Gárgola de Piedra", 25, 5, 6, 6);
-            Espectro espectro = new Espectro("Espectro Oscuro", 15, 3, 1, 4);
-            Belcebu belcebu = new Belcebu("Belcebu", 40, 8, 7, 10);
+            new Orco("Orco Salvaje", 20, 4, 2, 5),
+            new Troll("Troll de las Montañas", 30, 6, 5, 7),
+            new Gargola("Gárgola de Piedra", 25, 5, 6, 6),
+            new Espectro("Espectro Oscuro", 15, 3, 1, 4),
+            new Belcebu("Belcebu", 40, 8, 7, 10),
         };
 
         List<Heroe> HeroesLista = new List<Heroe>
