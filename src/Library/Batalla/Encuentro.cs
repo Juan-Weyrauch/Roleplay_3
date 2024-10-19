@@ -3,78 +3,89 @@ using Ucu.Poo.RoleplayGame;
 
 namespace Library.Batalla;
 
-public class  Encuentro
+public class Encuentro
 {
-    List<Enemigo>  listaEnemigos;
-    List<Heroe>     listaHeroes;
-    public Encuentro(List<Enemigo> enemigos, List<Heroe> heroes) // los enemigos van primero en el constructor.
+    List<Enemigo> listaEnemigos;
+    List<Heroe> listaHeroes;
+
+    public Encuentro(List<Enemigo> enemigos, List<Heroe> heroes)
     {
+        if (enemigos.Count < 1 || heroes.Count < 1)
+        {
+            throw new ArgumentException("Debe haber al menos un héroe y un enemigo para iniciar el encuentro.");
+        }
+
         this.listaEnemigos = enemigos;
         this.listaHeroes = heroes;
     }
 
     public void DoEncuentro()
     {
-        // Mientras haya héroes y enemigos vivos
+        int turno = 0; // 0 significa turno de enemigos, 1 significa turno de héroes
+
         while (listaHeroes.Count > 0 && listaEnemigos.Count > 0)
         {
-            // Los enemigos atacan primero
-            for (int i = 0; i < listaEnemigos.Count; i++)
+            // Ataques de los enemigos (turno 0)
+            if (turno == 0)
             {
-                Enemigo enemigoActual = listaEnemigos[i];
-                // Selecciona al héroe que será atacado (ciclo entre héroes si hay más enemigos que héroes)
-                Heroe heroActual = listaHeroes[i % listaHeroes.Count];
-
-                enemigoActual.Attack(heroActual); // El enemigo ataca al héroe
-                Console.WriteLine($"{enemigoActual.ObtenerNombre()} ataca al heroe {heroActual.ObtenerNombre()}");
-
-                // Verificar si el héroe ha muerto
-                if (heroActual.Health <= 0)
+                for (int i = 0; i < listaEnemigos.Count; i++)
                 {
-                    Console.WriteLine(
-                        $"{heroActual.ObtenerNombre()} ha muerto a manos de {enemigoActual.ObtenerNombre()}");
-                    listaHeroes.Remove(heroActual); // Eliminar héroe de la lista
-                    if (listaHeroes.Count == 0) break; // Si ya no quedan héroes, el encuentro termina
-                }
-            }
+                    if (listaHeroes.Count == 0) break; // Si no hay más héroes, termina la batalla
 
-            // Los héroes que sobreviven contraatacan
-            List<Enemigo> enemigosMuertos = new List<Enemigo>();
-            foreach (Heroe hero in listaHeroes)
-            {
-                foreach (Enemigo enemigo in listaEnemigos)
-                {
-                    if (enemigo.Health > 0)
+                    // Seleccionar héroe de manera cíclica
+                    Heroe heroActual = listaHeroes[i % listaHeroes.Count];
+                    Enemigo enemigoActual = listaEnemigos[i];
+
+                    enemigoActual.Attack(heroActual);
+                    Console.WriteLine($"{enemigoActual.ObtenerNombre()} ataca al héroe {heroActual.ObtenerNombre()}\n");
+
+                    // Si el héroe ha muerto, se elimina de la lista
+                    if (heroActual.Health <= 0)
                     {
-                        hero.Attack(enemigo); // El héroe ataca al enemigo
-                        Console.WriteLine($"{hero.ObtenerNombre()} ataca al enemigo {enemigo.ObtenerNombre()}");
-
-                        // Verificar si el enemigo ha muerto
-                        if (enemigo.Health <= 0)
-                        {
-                            Console.WriteLine($"{enemigo.ObtenerNombre()} ha muerto a manos de {hero.ObtenerNombre()}");
-                            hero.AumentarVp(enemigo); // Aumentar VP del héroe
-                            hero.Checkcurar(); // Curar si el héroe tiene 5 o más VP
-                            enemigosMuertos.Add(enemigo); // Marcar al enemigo para eliminar después
-                        }
+                        Console.WriteLine(
+                            $"{heroActual.ObtenerNombre()} ha muerto a manos de {enemigoActual.ObtenerNombre()}");
+                        listaHeroes.Remove(heroActual);
                     }
                 }
+
+                turno = 1; // Cambiar al turno de héroes
             }
 
-            // Remover enemigos muertos después de la batalla
-            foreach (Enemigo enemigoMuerto in enemigosMuertos)
+            // Ataques de los héroes (turno 1)
+            else if (turno == 1)
             {
-                listaEnemigos.Remove(enemigoMuerto);
+                for (int i = 0; i < listaHeroes.Count; i++)
+                {
+                    if (listaEnemigos.Count == 0) break; // Si no hay más enemigos, termina la batalla
+
+                    // Seleccionar enemigo de manera cíclica
+                    Enemigo enemigoActual = listaEnemigos[i % listaEnemigos.Count];
+                    Heroe heroActual = listaHeroes[i];
+
+                    heroActual.Attack(enemigoActual);
+                    Console.WriteLine($"{heroActual.ObtenerNombre()} ataca al enemigo {enemigoActual.ObtenerNombre()}\n");
+
+                    // Si el enemigo ha muerto, se elimina de la lista
+                    if (enemigoActual.Health <= 0)
+                    {
+                        Console.WriteLine(
+                            $"{enemigoActual.ObtenerNombre()} ha muerto a manos de {heroActual.ObtenerNombre()}");
+                        heroActual.AumentarVp(enemigoActual);
+                        heroActual.Checkcurar();
+                        listaEnemigos.Remove(enemigoActual);
+                    }
+                }
+
+                turno = 0; // Cambiar al turno de enemigos
             }
 
-            // Si todos los enemigos están muertos, el encuentro termina
+            // Verificar si todos los héroes o enemigos han muerto
             if (listaEnemigos.Count == 0)
             {
                 Console.WriteLine("¡Los héroes han ganado la batalla!");
                 break;
             }
 
-            // Si todos los héroes han muerto, el encuentro termina
             if (listaHeroes.Count == 0)
             {
                 Console.WriteLine("¡Los enemigos han ganado la batalla!");

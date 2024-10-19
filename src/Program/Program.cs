@@ -9,24 +9,22 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<Enemigo> EnemigosLista = new List<Enemigo>();
-       Enemigo Goblin1 = new Enemigo("Goblin",3,15,3,3);
-       Enemigo Goblin2 = new Enemigo("Goblin",3,15,3,3);
-       Enemigo Goblin3 = new Enemigo("Goblin",3,15,3,3);
-       EnemigosLista.Add(Goblin1);
-       EnemigosLista.Add(Goblin2);
-       EnemigosLista.Add(Goblin3);
-       List<Heroe> HeroesLista = new List<Heroe>();
-       Heroe Arquero = new Archer("Juana de Arco");
-       Heroe SoldadoReino = new Knight("Sir Lancelot");
-       Heroe Merlin = new Wizard("Merlin");
-       HeroesLista.Add(Arquero);
-       HeroesLista.Add(SoldadoReino);
-       HeroesLista.Add(Merlin);
-       
-       Encuentro Instacia = new Encuentro(EnemigosLista, HeroesLista);
-       Instacia.DoEncuentro();
-       
+        List<Enemigo> EnemigosLista = new List<Enemigo>
+        {
+            new Enemigo("Goblin", 3, 15, 3, 3),
+            new Enemigo("Pela2", 3, 15, 3, 3),
+            new Enemigo("Paragua", 3, 15, 3, 3),
+            new Enemigo("jijijaja", 3, 15, 3, 3)
+        };
 
+        List<Heroe> HeroesLista = new List<Heroe>
+        {
+            new Archer("Juana de Arco"),
+            new Knight("Sir Lancelot"),
+            new Wizard("Merlin")
+        };
+
+        Encuentro Inicio = new Encuentro(EnemigosLista, HeroesLista);
+        Inicio.DoEncuentro();
     }
 }
