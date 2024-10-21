@@ -24,7 +24,7 @@ class Program
             new Knight("Sir Lancelot"),
             new Wizard("Merlin")
         };
-
+    
         Encuentro Inicio = new Encuentro(EnemigosLista, HeroesLista);
         Inicio.DoEncuentro();
     }
