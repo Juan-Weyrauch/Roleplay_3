@@ -49,8 +49,7 @@ public class TestsProgram
 
         enemigo.Attack(heroe);
 
-        // Verificación intencionalmente incorrecta
-        Assert.AreEqual(95, heroe.Health); // Error: La vida debería ser menor, pero se espera 95
+        Assert.AreEqual(90, heroe.Health); // 100 de vida - 10 de daño
     }
 
     [Test]
@@ -63,10 +62,9 @@ public class TestsProgram
         heroe.AumentarVp(enemigo);
         heroe.AumentarVp(enemigo);
         heroe.AumentarVp(enemigo);
-        heroe.AumentarVp(enemigo); // Acumula 5 VP para curar // y probar que sucede si se aumenta mucho
+        heroe.AumentarVp(enemigo); // Acumula 5 VP para curar y probamos que sucede si se aumenta mucho
 
-        // Verificación intencionalmente incorrecta
-        Assert.AreEqual(80, heroe.Health); // Error: El héroe debería haberse curado completamente, pero se espera 80
+        Assert.AreEqual(100, heroe.Health); // El héroe debería haberse curado completamente
     }
 
     [Test]
@@ -78,11 +76,8 @@ public class TestsProgram
 
         Encuentro encuentro = new Encuentro(enemigosLista, heroesLista);
         encuentro.DoEncuentro();
-        // Heroe heroe = heroesLista[0]; //esto funciona?
-        // heroe.Attack(enemigo); // El héroe ataca al enemigo
 
-        // Verificación intencionalmente incorrecta
-        Assert.AreEqual(enemigosLista.Count, 1); // Error: El enemigo debería haber sido removido de la lista pero aún se espera que esté
+        Assert.AreEqual(enemigosLista.Count, 0); //El enemigo debería haber sido removido de la lista 
     }
 
     [Test]
@@ -96,8 +91,7 @@ public class TestsProgram
         Heroe heroe = heroesLista[0]; 
         enemigo.Attack(heroe);
 
-        // Verificaciones intencionalmente incorrectas
-        Assert.AreEqual(50, heroe.Health); // Error: La vida debería ser 0 pero se espera 50
-        Assert.True(heroesLista.Contains(heroe)); // Error: El héroe debería ser removido pero se espera que esté en la lista
+        Assert.AreEqual(0, heroe.Health); // La vida debería ser 0
+        Assert.AreEqual(heroesLista.Count, 0); //El heroe debería haber sido removido de la lista 
     }
 }
